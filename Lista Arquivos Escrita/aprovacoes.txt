@@ -1,0 +1,20 @@
+Nome: Luiz Eduardo
+Nota 1: 60 | Nota 2: 70 | Nota 3: 60
+Media: 63
+REPROVADO
+
+Nome: Carlos
+Nota 1: 70 | Nota 2: 70 | Nota 3: 60
+Media: 66
+REPROVADO
+
+Nome: Luiz
+Nota 1: 58 | Nota 2: 65 | Nota 3: 80
+Media: 67
+REPROVADO
+
+Nome: carlos
+Nota 1: 58 | Nota 2: 70 | Nota 3: 70
+Media: 66
+REPROVADO
+

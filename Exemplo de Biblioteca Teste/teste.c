@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include "biblioteca.h"
+
+int main()
+{
+    int a = 0, b = 0, c = 0;
+    char string[50];
+
+    printf("Informe um numero inteiro: ");
+    scanf("%d", &a);
+    printf("Informe outro numero: ");
+    scanf("%d", &b);
+
+    c = soma(a, b, c);
+    printf("Soma dos numeros %d e %d: %d", a, b, c);
+
+    fflush(stdin);
+    printf("\n\nInforme seu nome: ");
+    fgets(string, 100, stdin);
+    printf("Tamanho: %d", tamanho(string));
+
+    return 0;
+}
