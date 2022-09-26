@@ -1,0 +1,4 @@
+1. alterar entre arquivos
+2. utilizar arquivo binario - OK
+3. carregar na memoria (lista) 
+4. 
