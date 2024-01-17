@@ -25,7 +25,6 @@
     da quantidade de elementos que serao inserido na tabela.
     EX: 6 elementos, 12 é o dobro, 11 e 13 sao os primos mais proximos.
     Isso ajuda a reduzir as colisoes na tabela.
-
 */
 
 #include <stdio.h>
@@ -67,10 +66,12 @@ void inserirHash(int T[], int valor)
     // voltando automaticamente para o inicio do vetor.
 
     int id = funcaoHash(valor);
+
     while (T[id] != 0) // Caso ocorra colisao procura ate achar a proxima posicao vazia.
     {
         id = funcaoHash(id + 1);
     }
+
     T[id] = valor;
 }
 
@@ -92,6 +93,7 @@ int RemoverHash(int T[], int chave)
         {
             printf("Posicao acessada: %d\n", id);
             T[id] = 0;
+
             return 1;
         }
 
@@ -125,7 +127,9 @@ int buscarHash(int T[], int chave)
         }
 
         printf("Posicao com colisao: %d\n", id); // id com colisao
+
         id = funcaoHash(id + 1);
+
         tentativas++;
     }
 
@@ -176,23 +180,31 @@ int main()
         case 1:
             inicializarTabela(HASH);
             printf("Tabela inicializada!\n");
+
             continuar();
             clear();
+
             break;
         case 2:
             printf("Informe o elemento a ser inserido: ");
             scanf("%d", &valor);
             fflush(stdin);
+
             inserirHash(HASH, valor);
+
             printf("Elemento Inserido!\n");
+
             continuar();
             clear();
+
             break;
         case 3:
             printf("Informe o valor que deseja remover: ");
             scanf("%d", &valor);
             fflush(stdin);
+
             retorno = RemoverHash(HASH, valor);
+
             if (retorno == 1)
             {
                 printf("Elemento removido!\n");
@@ -201,14 +213,18 @@ int main()
             {
                 printf("Falha ao Remover.\n");
             }
+
             continuar();
             clear();
+
             break;
         case 4:
             printf("Informe o elemento a ser buscado: ");
             scanf("%d", &valor);
             fflush(stdin);
+
             retorno = buscarHash(HASH, valor);
+
             if (retorno != 0)
             {
                 printf("Elemento retornado: %d\n", retorno);
@@ -217,25 +233,33 @@ int main()
             {
                 printf("Elemento nao encontrado.\n");
             }
+
             continuar();
             clear();
+
             break;
         case 5:
             imprimirTabela(HASH);
+
             continuar();
             clear();
+
             break;
         case 6:
             printf("Encerrando programa...\n");
+
             break;
         default:
             printf("Opcao invalida, tente novamente!\n");
+
             continuar();
             clear();
+
             break;
         }
 
     } while (op != 6);
 
+    system("pause");
     return 0;
 }

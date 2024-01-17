@@ -1,6 +1,7 @@
 /*
     Árvore Binária de Busca de Pessoas
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -22,10 +23,13 @@ typedef struct no
 Pessoa ler_pessoa()
 {
     Pessoa p;
+
     printf("\tDigite o nome da pessoa: ");
     fgets(p.nome, 49, stdin);
+
     printf("\tDigite o cpf: ");
     scanf("%d", &p.cpf);
+
     return p;
 }
 
@@ -43,9 +47,11 @@ NoArv *inserir_versao_1(NoArv *raiz, Pessoa p)
     if (raiz == NULL)
     {
         NoArv *aux = malloc(sizeof(NoArv));
+
         aux->pessoa = p;
         aux->esquerda = NULL;
         aux->direita = NULL;
+
         return aux;
     }
     else
@@ -63,6 +69,7 @@ void inserir_versao_2(NoArv **raiz, Pessoa p)
     if (*raiz == NULL)
     {
         *raiz = malloc(sizeof(NoArv));
+
         (*raiz)->pessoa = p;
         (*raiz)->esquerda = NULL;
         (*raiz)->direita = NULL;
@@ -79,6 +86,7 @@ void inserir_versao_2(NoArv **raiz, Pessoa p)
 void inserir_versao_3(NoArv **raiz, Pessoa p)
 {
     NoArv *aux = *raiz;
+
     while (aux)
     {
         if (p.cpf < aux->pessoa.cpf)
@@ -87,10 +95,13 @@ void inserir_versao_3(NoArv **raiz, Pessoa p)
             raiz = &aux->direita;
         aux = *raiz;
     }
+
     aux = malloc(sizeof(NoArv));
+
     aux->pessoa = p;
     aux->esquerda = NULL;
     aux->direita = NULL;
+
     *raiz = aux;
 }
 
@@ -105,6 +116,7 @@ NoArv *buscar_versao_1(NoArv *raiz, int cpf)
         else
             return buscar_versao_1(raiz->direita, cpf);
     }
+
     return NULL;
 }
 
@@ -119,6 +131,7 @@ NoArv *buscar_versao_2(NoArv *raiz, int cpf)
         else
             return raiz;
     }
+
     return NULL;
 }
 
@@ -132,6 +145,7 @@ int altura(NoArv *raiz)
     {
         int esq = altura(raiz->esquerda);
         int dir = altura(raiz->direita);
+
         if (esq > dir)
             return esq + 1;
         else
@@ -175,7 +189,9 @@ NoArv *remover(NoArv *raiz, int chave)
             if (raiz->esquerda == NULL && raiz->direita == NULL)
             {
                 free(raiz);
+
                 printf("Elemento folha removido: %d !\n", chave);
+
                 return NULL;
             }
             else
@@ -184,26 +200,36 @@ NoArv *remover(NoArv *raiz, int chave)
                 if (raiz->esquerda != NULL && raiz->direita != NULL)
                 {
                     Pessoa p;
+
                     NoArv *aux = raiz->esquerda;
+
                     while (aux->direita != NULL)
                         aux = aux->direita;
+
                     p = raiz->pessoa;
                     raiz->pessoa = aux->pessoa;
                     aux->pessoa = p;
+
                     printf("Elemento trocado: %d !\n", chave);
+
                     raiz->esquerda = remover(raiz->esquerda, chave);
+
                     return raiz;
                 }
                 else
                 {
                     // remover nós que possuem apenas 1 filho
                     NoArv *aux;
+
                     if (raiz->esquerda != NULL)
                         aux = raiz->esquerda;
                     else
                         aux = raiz->direita;
+
                     free(raiz);
+
                     printf("Elemento com 1 filho removido: %d !\n", chave);
+
                     return aux;
                 }
             }
@@ -241,7 +267,6 @@ void imprimir_versao_2(NoArv *raiz)
 
 int main()
 {
-
     NoArv *busca, *raiz = NULL;
     int opcao, valor;
 
@@ -258,20 +283,27 @@ int main()
             break;
         case 2:
             printf("\n\tPrimeira impressao:\n\t");
+
             imprimir_versao_1(raiz);
+
             printf("\n");
             printf("\n\tSegunda impressao:\n\t");
+
             imprimir_versao_2(raiz);
             printf("\n");
+
             break;
         case 3:
             printf("\n\tDigite o cpf a ser procurado: ");
             scanf("%d", &valor);
+
             // busca = buscar_versao_1(raiz, valor);
             busca = buscar_versao_2(raiz, valor);
+
             if (busca)
             {
                 printf("\n\tValor encontrado:\n");
+
                 imprimir_pessoa(busca->pessoa);
             }
             else
@@ -288,10 +320,14 @@ int main()
             break;
         case 7:
             printf("\t");
+
             imprimir_versao_2(raiz);
+
             printf("\n\tDigite o cpf a ser removido: ");
             scanf("%d", &valor);
+
             raiz = remover(raiz, valor);
+
             break;
         default:
             if (opcao != 0)
@@ -299,5 +335,6 @@ int main()
         }
     } while (opcao != 0);
 
+    system("pause");
     return 0;
 }

@@ -8,6 +8,7 @@
     Deve retornar a posição do elemento procurado dentro do conjunto,
     ou -1 caso o mesmo não se encontre no conjunto.
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -64,5 +65,6 @@ int main()
         printf("\t\nElemento nao encontrado!\n");
     }
 
+    system("pause");
     return 0;
 }

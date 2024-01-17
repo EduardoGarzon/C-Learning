@@ -49,15 +49,20 @@ int remover_da_lista(Lista *l, int chave, int id)
     {
         printf("Posicao acessada no vetor: %d\n", id);
         printf("\tLista Vazia!\n");
+
         return 0;
     }
     else if (l->inicio->chave == chave)
     {
         l->inicio = aux->proximo;
+
         printf("\tPosicao acessada no vetor: %d\n", id);
         printf("\tElemento removido da lista: %d\n", aux->chave);
+
         free(aux);
+
         l->tam--;
+
         return 1;
     }
     else
@@ -72,14 +77,19 @@ int remover_da_lista(Lista *l, int chave, int id)
         {
             printf("Posicao acessada no vetor: %d\n", id);
             printf("\tElemento nao encontrado!\n");
+
             return 0;
         }
 
         anterior->proximo = aux->proximo;
+
         printf("\tPosicao acessada no vetor: %d\n", id);
         printf("\tElemento removido da lista: %d\n", aux->chave);
+
         free(aux);
+
         l->tam--;
+
         return 1;
     }
 }
@@ -87,6 +97,7 @@ int remover_da_lista(Lista *l, int chave, int id)
 int buscar_na_lista(Lista *l, int valor)
 {
     No *aux = l->inicio;
+
     while (aux != NULL && aux->chave != valor)
     {
         aux = aux->proximo;
@@ -95,13 +106,16 @@ int buscar_na_lista(Lista *l, int valor)
     {
         return aux->chave;
     }
+
     return 0;
 }
 
 void imprimir_lista(Lista *l)
 {
     No *aux = l->inicio;
+
     printf(" Tam: %d: ", l->tam);
+
     while (aux != NULL)
     {
         printf("%d ", aux->chave);
@@ -133,6 +147,7 @@ int remover(Lista t[], int chave)
 {
     int id = funcaoHash(chave);
     int result = remover_da_lista(&t[id], chave, id);
+
     return result;
 }
 
@@ -148,7 +163,9 @@ void imprimir(Lista t[])
     for (i = 0; i < TAM; i++)
     {
         printf("%2d = ", i);
+
         imprimir_lista(&t[i]);
+
         printf("\n");
     }
 }
@@ -182,15 +199,20 @@ void menu()
             printf("\tQual valor deseja inserir? ");
             scanf("%d", &valor);
             fflush(stdin);
+
             inserir(tabela, valor);
+
             continuar();
             limpa_tela();
+
             break;
         case 2:
             printf("\tQual valor deseja buscar? ");
             scanf("%d", &valor);
             fflush(stdin);
+
             retorno = busca(tabela, valor);
+
             if (retorno != 0)
             {
                 printf("\tValor encontrado: %d\n", retorno);
@@ -199,19 +221,25 @@ void menu()
             {
                 printf("\tValor nao encontrado!\n");
             }
+
             continuar();
             limpa_tela();
+
             break;
         case 3:
             imprimir(tabela);
+
             continuar();
             limpa_tela();
+
             break;
         case 4:
             printf("\tInforme o valor que deseja remover: ");
             scanf("%d", &valor);
             fflush(stdin);
+
             retorno = remover(tabela, valor);
+
             if (retorno == 1)
             {
                 printf("\tElemento removido!\n");
@@ -220,11 +248,14 @@ void menu()
             {
                 printf("\tFalha ao remover.\n");
             }
+
             continuar();
             limpa_tela();
+
             break;
         default:
             printf("\tOpcao invalida!\n");
+
             break;
         }
     } while (opcao != 0);
@@ -234,5 +265,7 @@ int main()
 {
     inicializarTabela(tabela);
     menu();
+
+    system("pause");
     return 0;
 }

@@ -38,10 +38,12 @@ int binSearch(int vector[], int dado)
     int lower = 0;
     int higher = TAM - 1; // Inicializar higher com o índice correto do último elemento
     int i = 0;
+
     while (lower <= higher)
     {
         i = (lower + higher) / 2; // Calculo da posicao central
-        if (vector[i] == dado)    // valor central igual valor procurado?
+
+        if (vector[i] == dado) // valor central igual valor procurado?
         {
             return i; // Encontrou a posição do elemento
         }
@@ -54,6 +56,7 @@ int binSearch(int vector[], int dado)
             lower = i + 1; // Pesquisa na metade direita
         }
     }
+
     return -1; // Nao encontrou o elemento
 }
 
@@ -69,6 +72,7 @@ int main()
     imprimirVetor(vector);
 
     retorno = binSearch(vector, dado);
+
     if (retorno != -1)
     {
         printf("\t\nElemento encontrado na posicao: %d\n", retorno);
@@ -78,5 +82,6 @@ int main()
         printf("\t\nElemento nao encontrado!\n");
     }
 
+    system("pause");
     return 0;
 }

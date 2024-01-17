@@ -47,13 +47,18 @@ void criarAgenda(char nomeArquivo[])
     file = fopen(nomeArquivo, "w");
     if (file)
     {
-        printf("\nAgenda [%s] criada/resetada no modo [w]!\n", nomeArquivo);
+        printf("\n");
+        printf("Agenda [%s] criada/resetada no modo [w]!\n", nomeArquivo);
+
         fclose(file);
+
         tecleEnter();
     }
     else
     {
-        printf("\nErro ao abrir agenda [%s]!\n", nomeArquivo);
+        printf("\n");
+        printf("Erro ao abrir agenda [%s]!\n", nomeArquivo);
+
         tecleEnter();
     }
 }
@@ -78,15 +83,23 @@ void abrirAgenda(char nomeArquivo[], Agenda *agenda)
             agenda->tamanho++;
             count++;
         }
+
         agenda->status = 1; // agenda aberta e carregada
-        printf("\nAgenda [%s] existente e aberta!\n", nomeAgenda);
+
+        printf("\n");
+        printf("Agenda [%s] existente e aberta!\n", nomeAgenda);
+
         fclose(file);
+
         strcpy(nomeArquivo, nomeAgenda);
+
         tecleEnter();
     }
     else
     {
-        printf("\nA agenda [%s] nao existe!\n", nomeAgenda);
+        printf("\n");
+        printf("A agenda [%s] nao existe!\n", nomeAgenda);
+
         tecleEnter();
     }
 }
@@ -133,12 +146,16 @@ void inserirContato(char nomeArquivo[], Agenda *agenda)
         agenda->tamanho++;
         agenda->contato[count].status = 1;
 
-        printf("\nContato inserido com sucesso!\n");
+        printf("\n");
+        printf("Contato inserido com sucesso!\n");
+
         tecleEnter();
     }
     else
     {
-        printf("\nAgenda cheia!\n");
+        printf("\n");
+        printf("Agenda cheia!\n");
+
         tecleEnter();
     }
 }
@@ -157,12 +174,16 @@ void removerContato(Agenda *agenda)
         agenda->contato[id].status = 0;
         agenda->tamanho--;
 
-        printf("\nContato desativado!\n");
+        printf("\n");
+        printf("Contato desativado!\n");
+
         tecleEnter();
     }
     else
     {
-        printf("\nID invalido!\n");
+        printf("\n");
+        printf("ID invalido!\n");
+
         tecleEnter();
     }
 }
@@ -174,6 +195,7 @@ void imprimirAgenda(Agenda *agenda)
 
     printf("--------------------CONTATOS--------------------\n");
     printf("Total de Contatos: [%d]\n\n", agenda->tamanho);
+
     while (count <= agenda->tamanho)
     {
         if (agenda->contato[count].status == 1)
@@ -196,6 +218,7 @@ void salvarAgenda(char nomeArquivo[], Agenda *agenda)
     {
         int count = 0;
         int count2 = 0;
+
         while (count <= agenda->tamanho)
         {
             if (agenda->contato[count].status == 1)
@@ -217,14 +240,19 @@ void salvarAgenda(char nomeArquivo[], Agenda *agenda)
             }
             count++;
         }
+
         fclose(file);
 
-        printf("\nAgenda salva com sucesso!\n");
+        printf("\n");
+        printf("Agenda salva com sucesso!\n");
+
         tecleEnter();
     }
     else
     {
-        printf("\nFalha ao salvar arquivo!\n");
+        printf("\n");
+        printf("Falha ao salvar arquivo!\n");
+
         tecleEnter();
     }
 }
@@ -272,7 +300,9 @@ void Menu()
             }
             else
             {
-                printf("\nAgenda nao aberta!\n");
+                printf("\n");
+                printf("Agenda nao aberta!\n");
+
                 tecleEnter();
             }
             break;
@@ -283,7 +313,9 @@ void Menu()
             }
             else
             {
-                printf("\nAgenda nao aberta!\n");
+                printf("\n");
+                printf("Agenda nao aberta!\n");
+
                 tecleEnter();
             }
             break;
@@ -294,7 +326,9 @@ void Menu()
             }
             else
             {
-                printf("\nAgenda nao aberta!\n");
+                printf("\n");
+                printf("Agenda nao aberta!\n");
+
                 tecleEnter();
             }
             break;
@@ -305,15 +339,17 @@ void Menu()
             }
             else
             {
-                printf("\nAgenda nao aberta!\n");
+                printf("\n");
+                printf("Agenda nao aberta!\n");
+
                 tecleEnter();
             }
             break;
         default:
-            printf("\nErro ou Opcao invalida, tente novamente!\n");
+            printf("\n");
+            printf("Erro ou Opcao invalida, tente novamente!\n");
             break;
         }
-
     } while (op != 8);
 }
 
@@ -321,5 +357,6 @@ int main()
 {
     Menu();
 
+    system("pause");
     return 0;
 }

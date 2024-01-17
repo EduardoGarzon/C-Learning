@@ -64,6 +64,7 @@ void imprimirContrato(Contrato c)
     printf("\t\tCargo: %s", c.cargo);
     printf("\t\tSalario R$%.2f\n", c.salario);
     printf("\t\tData de ad.: ");
+
     imprimirData(c.dataAss);
 }
 
@@ -72,6 +73,7 @@ void imprimirPessoa(Pessoa p)
     printf("\n\tNome: %s", p.nome);
     printf("\tCpf: %d\n", p.cpf);
     printf("\tData de nas.: ");
+
     imprimirData(p.dataNas);
     imprimirEndereco(p.end);
     imprimirContrato(p.contr);
@@ -82,57 +84,75 @@ void imprimirPessoa(Pessoa p)
 Data lerData()
 {
     Data d;
+
     printf("\nDigite a data no formato dd mm aaaa: ");
     scanf("%d%d%d", &d.dia, &d.mes, &d.ano);
     getchar();
+
     return d;
 }
 
 Endereco lerEndereco()
 {
     Endereco end;
+
     printf("\nRua: ");
     fgets(end.rua, sizeof(end.rua), stdin);
+
     printf("\nBairro: ");
     fgets(end.bairro, sizeof(end.bairro), stdin);
+
     printf("\nCidade: ");
     fgets(end.cidade, sizeof(end.cidade), stdin);
+
     printf("\nPais: ");
     fgets(end.pais, sizeof(end.pais), stdin);
+
     printf("\nNumero: ");
     scanf("%d", &end.num);
+
     printf("\nCep: ");
     scanf("%d", &end.cep);
     getchar();
+
     return end;
 }
 
 Contrato lerContrato()
 {
     Contrato c;
+
     printf("\nCodigo do contrato: ");
     scanf("%d", &c.codigo);
+
     printf("\nData de assinatura: ");
     c.dataAss = lerData();
+
     printf("\nCargo: ");
     fgets(c.cargo, sizeof(c.cargo), stdin);
+
     printf("\nSalario: R$");
     scanf("%f", &c.salario);
     getchar();
+
     return c;
 }
 
 Pessoa lerPessoa()
 {
     Pessoa p;
+
     printf("\nNome: ");
     fgets(p.nome, sizeof(p.nome), stdin);
+
     printf("\nCpf: ");
     scanf("%d", &p.cpf);
+
     printf("\nData de nascimento: ");
     p.dataNas = lerData();
     p.contr = lerContrato();
     p.end = lerEndereco();
+
     return p;
 }
 
@@ -164,12 +184,15 @@ int funcaoHashString(char str[])
 void inserir(Pessoa t[])
 {
     Pessoa p = lerPessoa();
+
     int id = funcaoHashString(p.nome);
+
     // Gera o indice a partir do nome da pessoa
     while (strlen(t[id].nome) > 0) // enquanto ocorrer colisao
     {
         id = funcaoHash(id + 1); // vai para a posicao seguinte
     }
+
     t[id] = p;
 }
 
@@ -177,7 +200,9 @@ Pessoa *busca(Pessoa t[], char chave[])
 {
     // Gera o indice a partir do nome a ser buscado
     int id = funcaoHashString(chave);
+
     printf("\nIndice gerado: %d\n", id);
+
     // enquanto o tamanho do nome for maior que zero
     while (strlen(t[id].nome) > 0)
     {
@@ -186,6 +211,7 @@ Pessoa *busca(Pessoa t[], char chave[])
         else
             id = funcaoHash(id + 1); // vai para a posicao seguinte
     }
+
     return NULL;
 }
 
@@ -195,6 +221,7 @@ void imprimir(Pessoa t[])
     for (i = 0; i < TAM; i++)
     {
         printf("%d\n", i);
+
         if (strlen(t[i].nome) > 0)
             imprimirPessoa(t[i]);
         printf("\n----------------------\n");
@@ -203,11 +230,10 @@ void imprimir(Pessoa t[])
 
 int main()
 {
-
     int opcao;
+    char nome[50];
     Pessoa *buscar;
     Pessoa tabela[TAM];
-    char nome[50];
 
     inicializarTabela(tabela);
 
@@ -221,11 +247,14 @@ int main()
         {
         case 1:
             inserir(tabela);
+
             break;
         case 2:
             printf("\tQual nome deseja buscar? ");
             fgets(nome, sizeof(nome), stdin);
+
             buscar = busca(tabela, nome);
+
             if (buscar)
             {
                 printf("\nCpf encontrado:\n");
@@ -233,14 +262,17 @@ int main()
             }
             else
                 printf("\tCpf nao encontrado!\n");
+
             break;
         case 3:
             imprimir(tabela);
+
             break;
         default:
             printf("Opcao invalida!\n");
         }
     } while (opcao != 0);
 
+    system("pause");
     return 0;
 }

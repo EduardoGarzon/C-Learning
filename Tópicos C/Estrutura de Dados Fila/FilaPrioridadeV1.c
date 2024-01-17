@@ -36,10 +36,12 @@ No *criar_Fila()
 void inserir_com_prioridade(No **fila, P pessoa)
 {
     No *aux, *novo = malloc(sizeof(No));
+
     if (novo)
     {
         novo->person = pessoa;
         novo->proximo = NULL;
+
         if (*fila == NULL) // a fila está vazia?
             *fila = novo;
         else
@@ -54,8 +56,10 @@ void inserir_com_prioridade(No **fila, P pessoa)
                 else
                 {
                     aux = *fila;
+
                     while (aux->proximo && aux->proximo->person.idade > 59)
                         aux = aux->proximo;
+
                     novo->proximo = aux->proximo; // insere depois da última prioridade
                     aux->proximo = novo;
                 }
@@ -63,14 +67,17 @@ void inserir_com_prioridade(No **fila, P pessoa)
             else
             { // não é prioridade, então insere no final
                 aux = *fila;
+
                 while (aux->proximo)
                     aux = aux->proximo;
+
                 aux->proximo = novo;
             }
         }
     }
     else
-        printf("\nErro ao alocar memoria.\n");
+        printf("\n");
+    printf("Erro ao alocar memoria.\n");
 }
 
 // Funcao para remover da fila
@@ -85,6 +92,7 @@ No *remover_da_fila(No **fila)
     }
     else
         printf("\tFila Vazia.\n");
+
     return remover;
 }
 
@@ -120,12 +128,16 @@ void imprimirFila(No *fila)
 P LerPessoa()
 {
     P p;
+
     printf("\tInforme o nome: ");
     fgets(p.nome, 50, stdin);
+
     printf("\tInforme a idade: ");
     scanf("%d", &p.idade);
     fflush(stdin);
+
     printf("\n");
+
     return p;
 }
 
@@ -161,10 +173,12 @@ void menu()
         getchar();
         Clear();
         menu();
+
         break;
     case 2:
         printf("\tPrograma encerrado.\n");
         free(fila);
+
         break;
     case 3:
         pessoa = LerPessoa();
@@ -181,6 +195,7 @@ void menu()
         getchar();
         Clear();
         menu();
+
         break;
     case 4:
         if (fila)
@@ -203,6 +218,7 @@ void menu()
         getchar();
         Clear();
         menu();
+
         break;
     case 5:
         imprimirFila(fila);
@@ -211,6 +227,7 @@ void menu()
         getchar();
         Clear();
         menu();
+
         break;
     case 6:
         r = remover_da_fila(&fila);
@@ -223,15 +240,17 @@ void menu()
             printf("\tFalha ao remover o elemento.\n");
         }
         free(r);
-        
+
         printf("\tTecle [ENTER] para continuar...");
         getchar();
         Clear();
         menu();
+
         break;
     default:
         printf("\tOpcao invalida, tente novamente.\n");
         menu();
+
         break;
     }
 }
@@ -240,5 +259,6 @@ int main()
 {
     menu();
 
+    system("pause");
     return 0;
 }

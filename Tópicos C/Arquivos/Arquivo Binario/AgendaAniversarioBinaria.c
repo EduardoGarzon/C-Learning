@@ -11,13 +11,17 @@ void imprimir(Contato **c, int quant)
 {
     int i;
 
-    printf("\n\t\tLista de Contatos:\n");
+    printf("\n");
+    printf("\t\tLista de Contatos:\n");
     printf("\t--------------------------------\n");
+
     for (i = 0; i < quant; i++)
     {
         printf("\t%d = %2d/%2d/%4d\t%s\n", i + 1, c[i]->dia, c[i]->mes, c[i]->ano, c[i]->nome);
     }
+
     printf("\t--------------------------------\n");
+
     getchar();
 }
 
@@ -27,17 +31,25 @@ int cadastrar_contato(Contato **c, int quant, int tam)
     {
         Contato *novo = malloc(sizeof(Contato));
 
-        printf("\nDigite o nome do contato: ");
-        scanf("%49[^\n]", novo->nome);
-        printf("\nDigite a data de aniversario dd mm aaaa: ");
+        printf("\n");
+        printf("Digite o nome do contato: ");
+        scanf("%50[^\n]", novo->nome);
+
+        printf("\n");
+        printf("Digite a data de aniversario dd mm aaaa: ");
         scanf("%d%d%d", &novo->dia, &novo->mes, &novo->ano);
+
         c[quant] = novo;
+
         return 1;
     }
     else
     {
-        printf("\n\tImpossivel novo cadastro. Vetor cheio!\n");
+        printf("\n");
+        printf("\tImpossivel novo cadastro. Vetor cheio!\n");
+
         getchar();
+
         return 0;
     }
 }
@@ -73,7 +85,9 @@ int lerB(char arq[], Contato **c)
 
             novo = malloc(sizeof(Contato)); // Aloca novo espaço para o próximo contato
         }
+
         free(novo); // Libera a última alocação não usada
+
         fclose(file);
     }
     else
@@ -92,22 +106,26 @@ void alterarB(char arq[])
     {
         printf("\tLista de contatos:\n");
         printf("\t----------------------------\n");
+
         while (fread(&c, sizeof(Contato), 1, file))
         {
             printf("\t%d = %2d/%2d/%4d\t%s\n", i + 1, c.dia, c.mes, c.ano, c.nome);
             i++;
         }
+
         printf("\t----------------------------\n");
 
-        printf("\n\tDigite o indice do contato que deseja alterar:\n\n");
+        printf("\n");
+        printf("\tDigite o indice do contato que deseja alterar:\n\n");
         scanf("%d", &id);
         getchar();
+
         id--;
 
         if (id >= 0 && id < i)
         {
             printf("\tDigite nome e data de nascimento dd mm aaaa: ");
-            scanf(" %49[^\n] %d%d%d", c.nome, &c.dia, &c.mes, &c.ano);
+            scanf(" %50[^\n] %d%d%d", c.nome, &c.dia, &c.mes, &c.ano);
 
             fseek(file, id * sizeof(Contato), SEEK_SET);
             fwrite(&c, sizeof(Contato), 1, file);
@@ -115,7 +133,9 @@ void alterarB(char arq[])
         }
         else
         {
-            printf("\n\tIndice de contato invalido!\n");
+            printf("\n");
+            printf("\tIndice de contato invalido!\n");
+
             getchar();
         }
 
@@ -123,7 +143,9 @@ void alterarB(char arq[])
     }
     else
     {
-        printf("\nErro ao abrir arquivo!\n");
+        printf("\n");
+        printf("Erro ao abrir arquivo!\n");
+
         getchar();
     }
 }
@@ -137,11 +159,14 @@ int main()
     do
     {
         system("cls");
+
         printf("\n\t0 - Sair\n\t1 - Cadastrar\n\t2 - Imprimir\n");
         printf("\t3 - SalvarB\n\t4 - LerB\n\t5 - AlterarB\n"); // Correção na opção "AlterarB"
         scanf("%d", &opcao);
         getchar();
+
         system("cls");
+
         switch (opcao)
         {
         case 1:
@@ -165,5 +190,6 @@ int main()
         }
     } while (opcao != 0);
 
+    system("pause");
     return 0;
 }

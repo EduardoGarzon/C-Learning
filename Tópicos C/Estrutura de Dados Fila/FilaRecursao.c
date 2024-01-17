@@ -16,11 +16,13 @@ void inserir_na_fila(No **fila, int valor)
     {
         novo->valor = valor;
         novo->proximo = NULL;
+
         if (*fila == NULL)
             *fila = novo; // insere no início se fila vazia
         else
         {
             aux = *fila;
+
             while (aux->proximo)
                 aux = aux->proximo; // insere no final se fila não estiver vazia
             aux->proximo = novo;
@@ -55,7 +57,9 @@ void remover_recursion(No **fila)
     {
         remover = *fila;
         *fila = remover->proximo;
+
         printf("Elemento removido: %d\n", remover->valor);
+
         free(remover);
         remover_recursion(fila);
     }
@@ -73,9 +77,12 @@ void imprimir_recursion(No *fila, int counter)
     {
         printf("\t------- FILA --------\n\t");
     }
+
     printf("%d   counter: %d\n", fila->valor, counter);
+
     if (fila->proximo)
         printf("\t-----------------------\n\t");
+
     imprimir_recursion(fila->proximo, counter + 1);
 }
 
@@ -89,5 +96,6 @@ int main()
 
     remover_recursion(&fila);
 
+    system("pause");
     return 0;
 }

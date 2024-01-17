@@ -49,6 +49,7 @@ void inserirInicio(No **lista, int v)
 void listas_PAR_IMPAR(No **A, No **P, No **I)
 {
     No *aux = *A;
+
     while (aux)
     {
         if (aux->valor % 2 == 0)
@@ -59,6 +60,7 @@ void listas_PAR_IMPAR(No **A, No **P, No **I)
         {
             inserirInicio(I, aux->valor); // Impar
         }
+
         aux = aux->proximo;
     }
 }
@@ -106,6 +108,7 @@ void listaMenu()
     op = -1;
 
     clearScreen();
+
     printf("\n\n\tMenu de Opcoes\n\n");
     printf("[0] Finalizar Programa\n");
     printf("[1] Inserir no Inicio da Lista A\n");
@@ -114,6 +117,7 @@ void listaMenu()
     printf("\nINFORME A OPCAO: ");
     scanf("%d", &op);
     fflush(stdin);
+
     clearScreen();
 
     switch (op)
@@ -121,30 +125,39 @@ void listaMenu()
     case 0:
         printf("\n\nEncerrando programa...\n\n");
         exit(0);
+
         break;
     case 1:
         capturarDados(&valor);
         inserirInicio(&valores, valor);
+
         listaMenu();
+
         break;
     case 2:
         printf("\n\nLISTA DOS VALORES\n\n");
         imprimirLista(valores);
+
         printf("\n\nLISTA PAR\n\n");
         imprimirLista(Par);
+
         printf("\n\nLISTA IMPAR\n\n");
         imprimirLista(Impar);
 
         printf("\n\nTecle ENTER para prosseguir...");
         getchar();
         fflush(stdin);
+
         listaMenu();
+
         break;
     case 3:
         listas_PAR_IMPAR(&valores, &Par, &Impar);
     default:
         printf("\n\nOpcao Invalida! Tente Novamente!\n\n");
+
         listaMenu();
+
         break;
     }
 }

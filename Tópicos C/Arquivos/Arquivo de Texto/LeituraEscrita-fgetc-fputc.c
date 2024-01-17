@@ -31,20 +31,23 @@ int main()
 
         rewind(file); // move o ponteiro para o inicio da arquivo
 
-        printf("\n\nLeitura do arquivo:\n");
+        printf("\n\n");
+        printf("Leitura do arquivo:\n");
         while (!feof(file))
         {
             letra = fgetc(file); // escrita
             printf("%c", letra);
         }
-        scanf("\n");
+        printf("\n");
     }
     else
     {
+        printf("\n");
         printf("Erro ao abrir o arquivo!\n");
     }
 
     fclose(file); // fecha o arquivo
 
+    system("pause");
     return 0;
 }

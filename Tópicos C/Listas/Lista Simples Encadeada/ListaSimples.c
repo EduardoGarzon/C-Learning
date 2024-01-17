@@ -41,12 +41,14 @@ void inserirInicio(No **lista, int v, char str[])
     {
         // adiciona os valores ao novo no
         strcpy(novo->nome, str);
+
         novo->CPF = v;
         // o proximo do novo no aponta para o inicio da lista
         // pois lista ja contem o proximo que novo deve apontar
         novo->proximo = *lista;
         // o inicio da lista passa ser o novo no
         *lista = novo;
+
         // header -> novo -> proximo ou NULL
     }
     else
@@ -67,6 +69,7 @@ void inserirFinal(No **lista, int v, char str[])
     if (novo)
     {
         strcpy(novo->nome, str);
+
         novo->CPF = v;
         novo->proximo = NULL; // sempre null ja que sera inserido no final
 
@@ -74,6 +77,7 @@ void inserirFinal(No **lista, int v, char str[])
         if (*lista == NULL)
         {
             *lista = novo; // primeiro no da lista
+
             // header -> novo -> NULL
         }
         else
@@ -84,6 +88,7 @@ void inserirFinal(No **lista, int v, char str[])
                 aux = aux->proximo;
             }
             aux->proximo = novo; // adiciona o novo no ao fim da lista
+
             // header -> v1 -> v2 -> novo -> NULL
         }
     }
@@ -103,6 +108,7 @@ void inserirMeio(No **lista, int v, char str[], int v_ant, char str_ant[])
     if (novo)
     {
         strcpy(novo->nome, str);
+
         novo->CPF = v;
 
         // verifica se lista vazia
@@ -110,19 +116,23 @@ void inserirMeio(No **lista, int v, char str[], int v_ant, char str_ant[])
         {
             novo->proximo = NULL;
             *lista = novo;
+
             // header -> novo -> NULL
         }
         else
         {
             aux = *lista; // no auxiliar recebe a cabeca da lista
+
             // percorre ate achar o elemento referencia ou chegar no final da lista
             while ((aux->CPF != v_ant || (strcmp(aux->nome, str_ant) != 0)) && aux->proximo)
             {
                 aux = aux->proximo;
             }
+
             // o novo no é adicionado depois do no referencia
             novo->proximo = aux->proximo; // proximo no do novo recebe o proximo no do aux
             aux->proximo = novo;          // proximo no auc recebe o novo
+
             // header -> v1 -> novo -> NULL
             // header -> v1 -> novo -> v2 -> NULL
         }
@@ -146,12 +156,14 @@ void inserirOrdenado(No **lista, int v, char str[])
         {
             novo->proximo = NULL;
             *lista = novo;
+
             // header -> novo -> NULL
         }
         else if (strlen(novo->nome) < strlen((*lista)->nome)) // verifica se é o menor elemento
         {
             novo->proximo = *lista;
             *lista = novo;
+
             // header -> novo -> proximo
         }
         else
@@ -165,6 +177,7 @@ void inserirOrdenado(No **lista, int v, char str[])
             }
             novo->proximo = aux->proximo;
             aux->proximo = novo;
+
             // header -> v1 -> novo -> v2 -> ...
             // header -> v1 -> v2 -> novo -> NULL
         }
@@ -206,6 +219,7 @@ No *remover_Elemento(No **lista, int v, char str[])
             }
         }
     }
+
     return remover;
 }
 
@@ -233,6 +247,7 @@ void imprimirLista(No *lista)
     if (lista)
     {
         printf("\n\nLISTA\n\n");
+
         while (lista)
         {
             printf("NOME: %s | CPF: %d\n\n", lista->nome, lista->CPF);
@@ -255,9 +270,10 @@ void imprimirLista(No *lista)
 void capturarDados(int *v, char str[])
 {
     printf("Informe o nome: ");
-    fgets(str, 31, stdin);          // le strings com espacos
-    str[strcspn(str, "\n")] = '\0'; // remove o \n do fgets
+    fgets(str, 31, stdin); // le strings com espacos
     fflush(stdin);
+
+    str[strcspn(str, "\n")] = '\0'; // remove o \n do fgets
 
     printf("Informe o cpf: ");
     scanf("%d", &(*v));
@@ -271,9 +287,10 @@ void capturarDados(int *v, char str[])
 void capturarPosicao(int *v, char str[])
 {
     printf("Informe o nome referencia: ");
-    fgets(str, 31, stdin);          // le strings com espacos
-    str[strcspn(str, "\n")] = '\0'; // remove o \n do fgets
+    fgets(str, 31, stdin); // le strings com espacos
     fflush(stdin);
+
+    str[strcspn(str, "\n")] = '\0'; // remove o \n do fgets
 
     printf("Informe o cpf referencia: ");
     scanf("%d", &(*v));
@@ -298,6 +315,7 @@ void listaMenu()
     memset(Nome_anterior, 0, sizeof(Nome_anterior));
 
     clearScreen();
+
     printf("\n\n\tMenu de Opcoes\n\n");
     printf("[0] Finalizar Programa\n");
     printf("[1] Inserir no Inicio da Lista\n");
@@ -310,41 +328,55 @@ void listaMenu()
     printf("\nINFORME A OPCAO: ");
     scanf("%d", &op);
     fflush(stdin);
+
     clearScreen();
 
     switch (op)
     {
     case 0:
         printf("\n\nEncerrando programa...\n\n");
+
         exit(0);
+
         break;
     case 1:
         capturarDados(&CPF, nome);
         inserirInicio(&Pessoa, CPF, nome);
+
         listaMenu();
+
         break;
     case 2:
         capturarDados(&CPF, nome);
         inserirFinal(&Pessoa, CPF, nome);
+
         listaMenu();
+
         break;
     case 3:
         capturarDados(&CPF, nome);
         capturarPosicao(&CPF_anterior, Nome_anterior);
         inserirMeio(&Pessoa, CPF, nome, CPF_anterior, Nome_anterior);
+
         listaMenu();
+
         break;
     case 4:
         capturarDados(&CPF, nome);
         inserirOrdenado(&Pessoa, CPF, nome);
+
         listaMenu();
+
         break;
     case 5:
         imprimirLista(Pessoa);
+
         listaMenu();
+
         break;
     case 6:
         capturarDados(&CPF, nome);
+
         // retorna elemento a ser removido por free
         Removido = remover_Elemento(&Pessoa, CPF, nome);
         if (Removido)
@@ -362,6 +394,7 @@ void listaMenu()
         fflush(stdin);
 
         listaMenu();
+
         break;
     case 7:
         capturarDados(&CPF, nome);
@@ -383,10 +416,12 @@ void listaMenu()
         fflush(stdin);
 
         listaMenu();
+
         break;
     default:
         printf("\n\nOpcao Invalida! Tente Novamente!\n\n");
         listaMenu();
+
         break;
     }
 }

@@ -28,12 +28,16 @@ void criarArquivo(const char nomeArquivo[], const char modoAbertura[])
     file = fopen(nomeArquivo, modoAbertura);
     if (file)
     {
-        printf("\nArquivo %s criado/aberto no modo %s!\n", nomeArquivo, modoAbertura);
+        printf("\n");
+        printf("Arquivo %s criado/aberto no modo %s!\n", nomeArquivo, modoAbertura);
+
         fclose(file);
     }
     else
     {
-        printf("\nErro ao abrir arquivo!\n");
+        printf("\n");
+        printf("Erro ao abrir arquivo!\n");
+
         exit(1);
     }
 }
@@ -46,19 +50,25 @@ void escreverArquivo(const char nomeArquivo[])
     char letra;
     if (file)
     {
-        printf("\nDigite algo e tecle [ENTER] para finalizar!\n");
+        printf("\n");
+        printf("Digite algo e tecle [ENTER] para finalizar!\n");
         scanf("%c", &letra);
+
         while (letra != '\n')
         {
             fputc(letra, file);
             scanf("%c", &letra);
         }
-        printf("\n\nDado escrito no arquivo!\n");
+
+        printf("\n\n");
+        printf("Dado escrito no arquivo!\n");
+
         fclose(file);
     }
     else
     {
-        printf("\nErro ao escrever no arquivo!\n");
+        printf("\n");
+        printf("Erro ao escrever no arquivo!\n");
     }
 }
 
@@ -70,18 +80,22 @@ void lerArquivo(const char nomeArquivo[])
     char letra;
     if (file)
     {
-        printf("\nDados lidos do arquivo:\n");
+        printf("\n");
+        printf("Dados lidos do arquivo:\n");
+
         while (!feof(file))
         {
             letra = fgetc(file);
             printf("%c", letra);
         }
         printf("\n");
+
         fclose(file);
     }
     else
     {
-        printf("\nErro ao ler arquivo!\n");
+        printf("\n");
+        printf("Erro ao ler arquivo!\n");
     }
 }
 
@@ -94,5 +108,6 @@ int main()
     escreverArquivo(nomeArquivo);
     lerArquivo(nomeArquivo);
 
+    system("pause");
     return 0;
 }

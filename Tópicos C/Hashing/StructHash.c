@@ -72,6 +72,7 @@ void imprimirPessoa(Pessoa p)
     printf("\n\tNome: %s", p.nome);
     printf("\tCpf: %lld\n", p.cpf);
     printf("\tData de nas.: ");
+
     imprimirData(p.dataNas);
     imprimirEndereco(p.end);
     imprimirContrato(p.contr);
@@ -82,9 +83,11 @@ void imprimirPessoa(Pessoa p)
 Data lerData()
 {
     Data d;
+
     printf("\nDigite a data no formato dd mm aaaa: ");
     scanf("%d%d%d", &d.dia, &d.mes, &d.ano);
     getchar();
+
     return d;
 }
 
@@ -94,51 +97,66 @@ Endereco lerEndereco()
     printf("\nRua: ");
     fflush(stdin);
     fgets(end.rua, sizeof(end.rua), stdin);
+
     printf("\nBairro: ");
     fflush(stdin);
     fgets(end.bairro, sizeof(end.bairro), stdin);
+
     printf("\nCidade: ");
     fflush(stdin);
     fgets(end.cidade, sizeof(end.cidade), stdin);
+
     printf("\nPais: ");
     fflush(stdin);
     fgets(end.pais, sizeof(end.pais), stdin);
+
     printf("\nNumero: ");
     scanf("%d", &end.num);
+
     printf("\nCep: ");
     scanf("%d", &end.cep);
     getchar();
+
     return end;
 }
 
 Contrato lerContrato()
 {
     Contrato c;
+
     printf("\nCodigo do contrato: ");
     scanf("%d", &c.codigo);
+
     printf("\nData de assinatura:\n");
     c.dataAss = lerData();
+
     printf("\nCargo: ");
     fgets(c.cargo, sizeof(c.cargo), stdin);
     fflush(stdin);
+
     printf("\nSalario: R$");
     scanf("%f", &c.salario);
     getchar();
+
     return c;
 }
 
 Pessoa lerPessoa()
 {
     Pessoa p;
+
     printf("\nNome: ");
     fgets(p.nome, sizeof(p.nome), stdin);
     fflush(stdin);
+
     printf("\nCpf: ");
     scanf("%lld", &p.cpf);
+
     printf("\nData de nascimento:\n");
     p.dataNas = lerData();
     p.contr = lerContrato();
     p.end = lerEndereco();
+
     return p;
 }
 
@@ -161,18 +179,23 @@ int funcaoHash(long long unsigned chave)
 void inserir(Pessoa t[])
 {
     Pessoa p = lerPessoa();
+
     int id = funcaoHash(p.cpf);
+
     while (t[id].cpf != 0)
     {
         id = funcaoHash(id + 1);
     }
+
     t[id] = p;
 }
 
 Pessoa *busca(Pessoa t[], long long unsigned chave)
 {
     int id = funcaoHash(chave);
+
     printf("\nIndice gerado: %d\n", id);
+
     while (t[id].cpf != 0)
     {
         if (t[id].cpf == chave)
@@ -180,6 +203,7 @@ Pessoa *busca(Pessoa t[], long long unsigned chave)
         else
             id = funcaoHash(id + 1);
     }
+
     return NULL;
 }
 
@@ -189,6 +213,7 @@ void imprimir(Pessoa t[])
     for (i = 0; i < TAM; i++)
     {
         printf("%d\n", i);
+
         if (t[i].cpf != 0)
             imprimirPessoa(t[i]);
         printf("\n----------------------\n");
@@ -199,6 +224,7 @@ int main()
 {
     int opcao;
     long long unsigned valor;
+
     Pessoa *buscar, tabela[TAM];
 
     inicializarTabela(tabela);
@@ -213,11 +239,14 @@ int main()
         {
         case 1:
             inserir(tabela);
+
             break;
         case 2:
             printf("\tQual CPF deseja buscar? ");
             scanf("%lld", &valor);
+
             buscar = busca(tabela, valor);
+
             if (buscar)
             {
                 printf("\nCPF encontrado:\n");
@@ -227,14 +256,17 @@ int main()
             {
                 printf("\tCPF nao encontrado!\n");
             }
+
             break;
         case 3:
             imprimir(tabela);
+
             break;
         default:
             printf("Opcao invalida!\n");
         }
     } while (opcao != 0);
 
+    system("pause");
     return 0;
 }

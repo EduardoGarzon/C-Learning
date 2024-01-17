@@ -1,18 +1,19 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "header.h"
 
-void *sexo()
+void *pointerFunction()
 {
-    printf("nao\n");
-    return NULL;
+    printf("Funcionou!\n");
 }
 
 int main()
 {
     HEADER h;
-    h.pointer = sexo;
+    h.pointer = pointerFunction;
 
     h.pointer();
 
+    system("pause");
     return 0;
 }

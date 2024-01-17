@@ -1,15 +1,14 @@
-/* Primeiro Programa em C */
-// Comentario na linha
+/*
+    Primeiro Programa em C
+*/
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
     printf("Hello World\n");
-    printf("Teste TAB\t Teste TAB\n");
-    printf("Apagando a ultima letra\b\n");
-    printf("\"Aspas\"\n");
-    printf("Contrabarra\\");
 
+    system("pause");
     return 0;
 }

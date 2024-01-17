@@ -22,9 +22,11 @@ NoArv *inserirNoRec(NoArv *raiz, int dado)
     if (raiz == NULL) // Verifica se no vazio
     {
         NoArv *aux = malloc(sizeof(NoArv));
+
         aux->dado = dado;
         aux->left = NULL;
         aux->rigth = NULL;
+
         return aux;
     }
     else
@@ -38,6 +40,7 @@ NoArv *inserirNoRec(NoArv *raiz, int dado)
         {
             raiz->rigth = inserirNoRec(raiz->rigth, dado);
         }
+
         return raiz;
     }
 }
@@ -70,6 +73,7 @@ void inserirNoRec2(NoArv **raiz, int dado)
 void inserirNoIterativo(NoArv **raiz, int dado)
 {
     NoArv *aux = *raiz;
+
     // while retorna um no vazio onde sera inserido o novo no com o dado
     while (aux) // Enquanto nao existir no vazio
     {
@@ -83,10 +87,13 @@ void inserirNoIterativo(NoArv **raiz, int dado)
         }
         aux = *raiz;
     }
+
     aux = malloc(sizeof(NoArv));
+
     aux->dado = dado;
     aux->left = NULL;
     aux->rigth = NULL;
+
     *raiz = aux; // atribui o novo no ao no vazio;
 }
 
@@ -98,6 +105,7 @@ NoArv *removerRecursivo(NoArv *raiz, int chave)
     if (raiz == NULL) // Verifica no vazio
     {
         printf("Valor nao encontrado!\n");
+
         return NULL;
     }
     else
@@ -108,7 +116,9 @@ NoArv *removerRecursivo(NoArv *raiz, int chave)
             if (raiz->left == NULL && raiz->rigth == NULL)
             {
                 free(raiz);
+
                 printf("Elemento folha removido: %d !\n", chave);
+
                 return NULL;
             }
             else
@@ -117,18 +127,25 @@ NoArv *removerRecursivo(NoArv *raiz, int chave)
                 if (raiz->left != NULL && raiz->rigth != NULL) // Se possui dois filhos
                 {
                     NoArv *aux = raiz->left; // Aux recebe a subárvore à esquerda
+
                     while (aux->rigth != NULL)
-                        aux = aux->rigth;   // Obtêm o nó mais a direita da subarvore esquerda
+                        aux = aux->rigth; // Obtêm o nó mais a direita da subarvore esquerda
+
                     raiz->dado = aux->dado; // Copia o predecessor para a posicao que contem o elemento a ser removido
-                    aux->dado = chave;      // Copia para o predecessor o valor que estava na posicao a ser removida
+
+                    aux->dado = chave; // Copia para o predecessor o valor que estava na posicao a ser removida
+
                     printf("Elemento trocado: %d\n", chave);
+
                     raiz->left = removerRecursivo(raiz->left, chave);
+
                     return raiz;
                 }
                 else
                 {
                     // remover nós que possuem 1 filho
                     NoArv *aux;
+
                     if (raiz->left != NULL)
                     {
                         aux = raiz->left;
@@ -137,8 +154,11 @@ NoArv *removerRecursivo(NoArv *raiz, int chave)
                     {
                         aux = raiz->rigth;
                     }
+
                     free(raiz);
+
                     printf("Elemento com 1 filho removido: %d\n", chave);
+
                     return aux;
                 }
             }
@@ -168,6 +188,7 @@ NoArv *buscaRecursiva(NoArv *raiz, int dado)
         else                                          // Dado maior que o no atual
             return buscaRecursiva(raiz->rigth, dado); // Percorre pela direita
     }
+
     return NULL; // Retorna vazio se nao encontrou o dado
 }
 
@@ -185,6 +206,7 @@ NoArv *buscaIterativa(NoArv *raiz, int dado)
         else                        // Dado nao é menor nem maior entao é igual
             return raiz;            // Retorna o no que contem o dado procurado
     }
+
     return NULL; // Retorna Null se nao encontrar o dado
 }
 
@@ -197,6 +219,7 @@ void imprimirPre(NoArv *raiz)
     if (raiz)
     {
         printf("%d ", raiz->dado);
+
         imprimirPre(raiz->left);
         imprimirPre(raiz->rigth);
     }
@@ -211,7 +234,9 @@ void imprimirIn(NoArv *raiz)
     if (raiz)
     {
         imprimirIn(raiz->left);
+
         printf("%d ", raiz->dado);
+
         imprimirIn(raiz->rigth);
     }
 }
@@ -225,7 +250,9 @@ void imprimirPos(NoArv *raiz)
     if (raiz)
     {
         imprimirPos(raiz->left);
+
         imprimirPos(raiz->rigth);
+
         printf("%d ", raiz->dado);
     }
 }
@@ -243,6 +270,7 @@ int alturaRecursiva(NoArv *raiz)
     {
         int left = alturaRecursiva(raiz->left);
         int right = alturaRecursiva(raiz->rigth);
+
         if (left > right)
         {
             return left + 1;
@@ -322,22 +350,31 @@ int main()
             printf("Informe o valor: ");
             scanf("%d", &dado);
             fflush(stdin);
+
             Arvore = inserirNoRec(Arvore, dado);
+
             clear();
+
             break;
         case 2:
             printf("Informe o valor: ");
             scanf("%d", &dado);
             fflush(stdin);
+
             inserirNoRec2(&Arvore, dado);
+
             clear();
+
             break;
         case 3:
             printf("Informe o valor: ");
             scanf("%d", &dado);
             fflush(stdin);
+
             inserirNoIterativo(&Arvore, dado);
+
             clear();
+
             break;
         case 4:
             if (Arvore == NULL)
@@ -348,19 +385,24 @@ int main()
             {
                 printf("\n\n[Pre-Ordem]: Raiz, Subarvore esquerda, Subarvore direita.\n");
                 imprimirPre(Arvore);
+
                 printf("\n\n[In-Ordem]: Subarvore esquerda, Raiz, Subarvore direita.\n");
                 imprimirIn(Arvore);
+
                 printf("\n\n[Pos-Ordem]: Subarvore esquerda, Subarvore direita, Raiz.\n");
                 imprimirPos(Arvore);
             }
             printf("\n");
+
             continuar();
             clear();
+
             break;
         case 5:
             printf("Informe o elemento a ser buscado: ");
             scanf("%d", &dado);
             fflush(stdin);
+
             retorno = buscaRecursiva(Arvore, dado);
             if (retorno)
             {
@@ -370,14 +412,18 @@ int main()
             {
                 printf("Elemento nao encontrado!");
             }
+
             continuar();
             clear();
+
             break;
         case 6:
             printf("Informe o elemento a ser buscado: ");
             scanf("%d", &dado);
             fflush(stdin);
+
             retorno = buscaIterativa(Arvore, dado);
+
             if (retorno)
             {
                 printf("Elemento retornado: %d\n", retorno->dado);
@@ -386,31 +432,42 @@ int main()
             {
                 printf("Elemento nao encontrado!");
             }
+
             continuar();
             clear();
+
             break;
         case 7:
             printf("Altura da Arvore: %d\n", alturaRecursiva(Arvore));
+
             continuar();
             clear();
+
             break;
         case 8:
             printf("Quantidade de nós da Arvore: %d\n", qtdNosRecursiva(Arvore));
+
             continuar();
             clear();
+
             break;
         case 9:
             printf("Quantida de folhas da Arvore: %d\n", qtdFolhasRecursiva(Arvore));
+
             continuar();
             clear();
+
             break;
         case 10:
             printf("Informe o valor que deseja remover: ");
             scanf("%d", &dado);
             fflush(stdin);
+
             Arvore = removerRecursivo(Arvore, dado);
+
             continuar();
             clear();
+
             break;
         default:
             printf("Opcao invalida!\n");
@@ -418,5 +475,6 @@ int main()
         }
     } while (op != 0);
 
+    system("pause");
     return 0;
 }

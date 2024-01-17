@@ -47,6 +47,7 @@ void inserir_no_inicio(Lista *lista, int num)
         novo->proximo = lista->inicio; // recebe NULL na primeira iteracao
         lista->inicio = novo;          // recebe o novo no alocado
         lista->tam++;                  // incrementa tamanho
+
         // Lista (header) -> No *inicio (novo) -> No *inicio->proximo == NULL
     }
     else
@@ -75,6 +76,7 @@ void inserir_no_fim(Lista *lista, int num)
             aux->proximo = novo; // aux->proximo == NULL
             // aux->proximo = novo(no)
         }
+
         lista->tam++;
     }
     else
@@ -106,8 +108,10 @@ void inserir_no_meio(Lista *lista, int num, int ant)
                 aux = aux->proximo;
             novo->proximo = aux->proximo;
             aux->proximo = novo;
+
             // aux -> novo -> proximo ou NULL
         }
+
         lista->tam++;
     }
     else
@@ -125,17 +129,20 @@ void inserir_ordenado(Lista *lista, int num)
     if (novo)
     {
         novo->valor = num;
+
         // verifica se lista esta vazia
         if (lista->inicio == NULL)
         {
             novo->proximo = NULL;
             lista->inicio = novo;
+
             // antes header -> NULL depois header -> 1 -> NULL
         }
         else if (novo->valor < lista->inicio->valor) // verifica se é o primeiro elemento
         {
             novo->proximo = lista->inicio;
             lista->inicio = novo;
+
             // antes header -> 3 -> NULL depois header -> 1 -> 3 -> NULL
         }
         else
@@ -146,8 +153,11 @@ void inserir_ordenado(Lista *lista, int num)
                 aux = aux->proximo;
             novo->proximo = aux->proximo;
             aux->proximo = novo;
-            // antes header -> 1 -> 2 -> 10 -> NULL depois header -> 1 -> 2 -> novo -> 10 -> NULL
+
+            // antes header -> 1 -> 2 -> 10 -> NULL
+            // depois header -> 1 -> 2 -> novo -> 10 -> NULL
         }
+
         lista->tam++;
     }
     else
@@ -170,11 +180,13 @@ No *remover(Lista *lista, int num)
             remover = lista->inicio;
             lista->inicio = remover->proximo;
             lista->tam--;
+
             // antes header -> 1 -> NULL depois header -> NULL
         }
         else
         {
             aux = lista->inicio;
+
             // percorre a lista ate o final e enquanto nao encontrar o elemento procurado
             while (aux->proximo && aux->proximo->valor != num)
                 aux = aux->proximo;
@@ -183,6 +195,7 @@ No *remover(Lista *lista, int num)
                 remover = aux->proximo;
                 aux->proximo = remover->proximo;
                 lista->tam--;
+
                 // antes header -> 1 -> 2 -> 3 -> NULL, depois header -> 1 -> 3 -> NULL
                 // antes header -> 1 -> 2 -> 3 -> NULL, depois header -> 1 -> 2 -> NULL
             }
@@ -210,12 +223,15 @@ No *buscar(Lista *lista, int num)
 void imprimir(Lista lista)
 {
     No *no = lista.inicio;
+
     printf("\n\tLista tam %d: ", lista.tam);
+
     while (no)
     {
         printf("%d ", no->valor);
         no = no->proximo;
     }
+
     printf("\n\n");
 }
 
@@ -237,53 +253,68 @@ int main()
         case 1:
             printf("Digite um valor: ");
             scanf("%d", &valor);
+
             inserir_no_inicio(&lista, valor);
+
             break;
         case 2:
             printf("Digite um valor: ");
             scanf("%d", &valor);
+
             inserir_no_fim(&lista, valor);
+
             break;
         case 3:
             printf("Digite um valor e o valor de referencia: ");
             scanf("%d%d", &valor, &anterior);
+
             inserir_no_meio(&lista, valor, anterior);
+
             break;
         case 4:
             printf("Digite um valor: ");
             scanf("%d", &valor);
+
             inserir_ordenado(&lista, valor);
+
             break;
         case 5:
             imprimir(lista);
+
             break;
         case 6:
             printf("Informe o valor a ser removido: ");
             scanf("%d", &valor);
+
             removido = remover(&lista, valor);
+
             if (removido)
             {
-                printf("Elemento removido: %d", removido->valor);
+                printf("Elemento removido: %d\n", removido->valor);
                 free(removido);
             }
             else
             {
                 printf("\n\nFalha ao remover elemento.\n\n");
             }
+
             break;
         case 7:
             printf("Informe o valor a ser buscado: ");
             scanf("%d", &valor);
+
             removido = buscar(&lista, valor);
+
             if (removido)
             {
-                printf("Elemento buscado encontrado: %d", removido->valor);
+                printf("Elemento buscado encontrado: %d\n", removido->valor);
                 free(removido);
             }
             else
             {
                 printf("\n\nElemento nao encontrado.\n\n");
             }
+
             break;
         default:
             if (opcao != 0)
@@ -292,5 +323,6 @@ int main()
 
     } while (opcao != 0);
 
+    system("pause");
     return 0;
 }

@@ -14,6 +14,6 @@ int main()
     cadastrarUsuario(&sis);
     exibirUsuario(&sis);
 
-
+    system("pause");
     return 0;
 }

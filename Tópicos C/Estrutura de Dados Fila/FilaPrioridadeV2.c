@@ -8,13 +8,16 @@ typedef struct no{
 
 void inserir_na_fila(No **fila, int num){
     No *aux, *novo = malloc(sizeof(No));
+    
     if(novo){
         novo->valor = num;
         novo->proximo = NULL;
+    
         if(*fila == NULL)
             *fila = novo;
         else{
             aux = *fila;
+    
             while(aux->proximo)
                 aux = aux->proximo;
             aux->proximo = novo;
@@ -26,9 +29,11 @@ void inserir_na_fila(No **fila, int num){
 
 void inserir_com_prioridade(No **fila, int num){
     No *aux, *novo = malloc(sizeof(No));
+    
     if(novo){
         novo->valor = num;
         novo->proximo = NULL;
+    
         if(*fila == NULL)
             *fila = novo;
         else{
@@ -40,14 +45,17 @@ void inserir_com_prioridade(No **fila, int num){
                 }
                 else{
                     aux = *fila;
+    
                     while(aux->proximo && aux->proximo->valor > 59)
                         aux = aux->proximo;
+    
                     novo->proximo = aux->proximo; // insere depois da última prioridade
                     aux->proximo = novo;
                 }
             }
             else{
                 aux = *fila;
+    
                 while(aux->proximo)
                     aux = aux->proximo;
                 aux->proximo = novo;
@@ -72,10 +80,12 @@ No* remover_da_fila(No **fila){
 
 void imprimir(No *fila){
     printf("\t------- FILA --------\n\t");
+    
     while(fila){
         printf("%d ", fila->valor);
         fila = fila->proximo;
     }
+    
     printf("\n\t------- FIM FILA --------\n");
 }
 
@@ -92,6 +102,7 @@ int main(){
             printf("Digite um valor: ");
             scanf("%d", &valor);
             inserir_na_fila(&fila, valor);
+            
             break;
         case 2:
             r = remover_da_fila(&fila);
@@ -99,14 +110,18 @@ int main(){
                 printf("Removido: %d\n", r->valor);
                 free(r);
             }
+            
             break;
         case 3:
             imprimir(fila);
+            
             break;
         case 4:
             printf("Digite um valor: ");
             scanf("%d", &valor);
+            
             inserir_com_prioridade(&fila, valor);
+            
             break;
         default:
             if(opcao != 0)
@@ -115,5 +130,6 @@ int main(){
 
     }while(opcao != 0);
 
+    system("pause");
     return 0;
 }

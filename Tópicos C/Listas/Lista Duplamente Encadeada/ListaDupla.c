@@ -32,6 +32,7 @@ void inserir_Inicio(No **lista, int num)
         if (*lista)
             (*lista)->anterior = novo;
         *lista = novo;
+
         // <- header -> <- novo -> <- v1 -> NULL
     }
     else
@@ -53,16 +54,19 @@ void inserir_Fim(No **lista, int num)
         {
             *lista = novo;
             novo->anterior = NULL;
+
             // NULL <- header -> NULL
         }
         else
         {
             aux = *lista;
+
             // percorre ate o ultimo elemento da lista
             while (aux->proximo)
                 aux = aux->proximo;
             aux->proximo = novo;
             novo->anterior = aux;
+
             // <- header -> <- v1 -> <- novo -> NULL
         }
     }
@@ -84,21 +88,26 @@ void inserir_Meio(No **lista, int num, int ant)
             novo->proximo = NULL;
             novo->anterior = NULL;
             *lista = novo;
+
             // <- header -> <- novo -> NULL
         }
         else
         {
             aux = *lista;
+
             // percorre ate o final ou enquanto o valor procurado for diferente do atual
             while (aux->valor != ant && aux->proximo)
                 aux = aux->proximo;
             novo->proximo = aux->proximo;
+
             // header -> <- v1 -> v2 -> NULL entao novo -> v2
             if (aux->proximo)
                 aux->proximo->anterior = novo;
             novo->anterior = aux;
             aux->proximo = novo;
-            // antes header -> v1 -> v2 -> NULL depois <- header -> <- v1 -> <- novo -> <- v2 -> NULL
+
+            // antes header -> v1 -> v2 -> NULL
+            // depois <- header -> <- v1 -> <- novo -> <- v2 -> NULL
         }
     }
     else
@@ -119,6 +128,7 @@ void inserir_Ordenado(No **lista, int num)
             novo->proximo = NULL;
             novo->anterior = NULL;
             *lista = novo;
+
             // <- header -> null <- novo -> null
         } // é o menor?
         else if (novo->valor < (*lista)->valor)
@@ -126,19 +136,23 @@ void inserir_Ordenado(No **lista, int num)
             novo->proximo = *lista;
             (*lista)->anterior = novo;
             *lista = novo;
+
             // header <--> <- novo -> <- v1 -> NULL
         }
         else
         {
             aux = *lista;
+
             // percorre ate o final ou enquanto o valor for maior que o atual
             while (aux->proximo && novo->valor > aux->proximo->valor)
                 aux = aux->proximo;
             novo->proximo = aux->proximo;
+
             if (aux->proximo)
                 aux->proximo->anterior = novo;
             novo->anterior = aux;
             aux->proximo = novo;
+
             // header <--> <- v1 -> <- novo -> <- v2 -> NULL
         }
     }
@@ -159,15 +173,18 @@ No *remover_Elemento(No **lista, int num)
         {
             remover = *lista;
             *lista = remover->proximo;
+
             // verifica se existe proximo senao e NULL
             if (*lista)
                 (*lista)->anterior = NULL;
+
             // antes header <--> <- v1 -> <- v2 ->NULL
             // depois header <--> <- v2 -> NULL
         }
         else
         {
             aux = *lista;
+
             // percorre ate o final ou enquanto o valor procurado for diferente do atual
             // compara com o proximo pois comeca no header
             while (aux->proximo && aux->proximo->valor != num)
@@ -179,10 +196,12 @@ No *remover_Elemento(No **lista, int num)
                 if (aux->proximo)                 // verifica se o novo proximo é NULL
                     aux->proximo->anterior = aux; // se for elemento aponta para o anterior
             }
+
             // antes header <--> <- v1 -> <- v2 -> <- v3 -> NULL
             // depois header <--> <- v1 -> <- v2 -> NULL
         }
     }
+
     return remover;
 }
 
@@ -194,6 +213,7 @@ No *buscar_Elemento(No **lista, int num)
     aux = *lista;
     while (aux && aux->valor != num)
         aux = aux->proximo;
+
     // verifica se é NULL ou elemento
     if (aux)
         no = aux;
@@ -204,6 +224,7 @@ No *buscar_Elemento(No **lista, int num)
 void imprimir_Lista(No *no)
 {
     printf("\n\tLISTA: ");
+
     if (no)
     {
         while (no)
@@ -216,6 +237,7 @@ void imprimir_Lista(No *no)
     {
         printf("\n\nLISTA VAZIA!\n\n");
     }
+
     printf("\n\n");
 }
 
@@ -223,6 +245,7 @@ void imprimir_Lista(No *no)
 No *ultimo(No **lista)
 {
     No *aux = *lista;
+
     if (*lista)
     {
         while (aux->proximo)
@@ -241,11 +264,13 @@ No *ultimo(No **lista)
 void imprimirContrario(No *no)
 {
     printf("\n\tLista: ");
+
     while (no)
     {
         printf("%d ", no->valor);
         no = no->anterior;
     }
+
     printf("\n\n");
 }
 
@@ -265,6 +290,7 @@ void menu_Lista()
 {
 
     limpa_Tela();
+
     printf("\n\n\tMENU DA LISTA ENCADEADA\n\n");
     printf("[0] Encerrar programa.\n");
     printf("[1] Inserir no Inicio da Lista.\n");
@@ -282,39 +308,59 @@ void menu_Lista()
     {
     case 0:
         limpa_Tela();
+
         printf("\n\n\tEncerrando Programa...\n\n");
         free(lista);
+
         exit(0);
+
         break;
     case 1:
         limpa_Tela();
+
         capturar_Dados(&valor);
         inserir_Inicio(&lista, valor);
+
         menu_Lista();
+
+        break;
     case 2:
         limpa_Tela();
+
         capturar_Dados(&valor);
         inserir_Fim(&lista, valor);
+
         menu_Lista();
+
         break;
     case 3:
         limpa_Tela();
+
         printf("informe o valor de referencia: ");
         scanf("%d", &anterior);
+        getchar();
+
         capturar_Dados(&valor);
         inserir_Meio(&lista, valor, anterior);
+
         menu_Lista();
+
         break;
     case 4:
         limpa_Tela();
+
         capturar_Dados(&valor);
         inserir_Ordenado(&lista, valor);
+
         menu_Lista();
+
         break;
     case 5:
         limpa_Tela();
         capturar_Dados(&valor);
+
         remover = remover_Elemento(&lista, valor);
+
         if (remover)
         {
             printf("Elemento a ser removido: %d\n", remover->valor);
@@ -323,16 +369,19 @@ void menu_Lista()
         else
             printf("\n\n\tElemento inexistente!\n\n");
 
-         printf("\n\nTecle ENTER para prosseguir...");
+        printf("\n\nTecle ENTER para prosseguir...");
         getchar();
-        fflush(stdin);
 
         menu_Lista();
+
         break;
     case 6:
         limpa_Tela();
+
         capturar_Dados(&valor);
+
         remover = buscar_Elemento(&lista, valor);
+
         if (remover)
         {
             printf("Elemento Buscado: %d\n", remover->valor);
@@ -344,19 +393,20 @@ void menu_Lista()
 
         printf("\n\nTecle ENTER para prosseguir...");
         getchar();
-        fflush(stdin);
 
         menu_Lista();
+
         break;
     case 7:
         limpa_Tela();
+
         imprimir_Lista(lista);
 
         printf("\n\nTecle ENTER para prosseguir...");
         getchar();
-        fflush(stdin);
 
         menu_Lista();
+
         break;
     case 8:
         limpa_Tela();
@@ -364,9 +414,9 @@ void menu_Lista()
 
         printf("\n\nTecle ENTER para prosseguir...");
         getchar();
-        fflush(stdin);
 
         menu_Lista();
+
         break;
     default:
         break;

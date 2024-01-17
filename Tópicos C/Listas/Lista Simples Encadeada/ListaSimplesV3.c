@@ -41,6 +41,7 @@ void inserirInicio(No **lista, int v, char str[])
     {
         // adiciona os valores ao novo no
         strcpy(novo->nome, str);
+
         novo->CPF = v;
         // o proximo do novo no aponta para o inicio da lista
         // pois lista ja contem o proximo que novo deve apontar
@@ -85,11 +86,13 @@ No *remover_Elemento(No **lista, int v, char str[])
             {
                 remover = aux->proximo;
                 aux->proximo = remover->proximo;
+
                 // antes header -> 1 -> 2 -> 3 -> NULL, depois header -> 1 -> 3 -> NULL
                 // antes header -> 1 -> 2 -> 3 -> NULL, depois header -> 1 -> 2 -> NULL
             }
         }
     }
+
     return remover;
 }
 
@@ -131,8 +134,10 @@ void imprimirLista(No *lista)
 void capturarDados(int *v, char str[])
 {
     printf("Informe o nome: ");
-    fgets(str, 31, stdin);          // le strings com espacos
+    fgets(str, 31, stdin); // le strings com espacos
+
     str[strcspn(str, "\n")] = '\0'; // remove o \n do fgets
+
     fflush(stdin);
 
     printf("Informe o cpf: ");
@@ -168,6 +173,7 @@ void listaMenu()
     printf("\nINFORME A OPCAO: ");
     scanf("%d", &op);
     fflush(stdin);
+
     clearScreen();
 
     switch (op)
@@ -175,21 +181,30 @@ void listaMenu()
     case 0:
         printf("\n\nEncerrando programa...\n\n");
         exit(0);
+
         break;
     case 1:
         capturarDados(&CPF, nome);
+
         inserirInicio(&PessoaA, CPF, nome);
+
         listaMenu();
+
         break;
     case 2:
         capturarDados(&CPF, nome);
+
         inserirInicio(&PessoaB, CPF, nome);
+
         listaMenu();
+
         break;
     case 3:
         capturarDados(&CPF, nome);
+
         // retorna elemento a ser removido por free
         Removido = remover_Elemento(&Pessoa, CPF, nome);
+
         if (Removido)
         {
             printf("Elemento Removido da Lista: %s\n", Removido->nome);
@@ -209,22 +224,30 @@ void listaMenu()
     case 4:
         printf("\n\nLISTA C\n\n");
         imprimirLista(Pessoa);
+
         printf("\n\nLISTA A\n\n");
         imprimirLista(PessoaA);
+
         printf("\n\nLISTA B\n\n");
         imprimirLista(PessoaB);
 
         printf("\n\nTecle ENTER para prosseguir...");
         getchar();
         fflush(stdin);
+
         listaMenu();
+
         break;
     case 5:
         copiar_Lista(&Pessoa, &PessoaA);
         copiar_Lista(&Pessoa, &PessoaB);
+
+        break;
     default:
         printf("\n\nOpcao Invalida! Tente Novamente!\n\n");
+
         listaMenu();
+
         break;
     }
 }

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "biblioteca.h"
+#include "BibliotecaTeste.h"
 
 int main()
 {
@@ -8,16 +8,18 @@ int main()
 
     printf("Informe um numero inteiro: ");
     scanf("%d", &a);
+
     printf("Informe outro numero: ");
     scanf("%d", &b);
 
     c = soma(a, b, c);
-    printf("Soma dos numeros %d e %d: %d", a, b, c);
+    printf("Soma dos numeros %d e %d: %d\n", a, b, c);
 
-    fflush(stdin);
     printf("\n\nInforme seu nome: ");
     fgets(string, 100, stdin);
-    printf("Tamanho: %d", tamanho(string));
 
+    printf("Tamanho: %d\n", tamanho(string));
+
+    system("pause");
     return 0;
 }
