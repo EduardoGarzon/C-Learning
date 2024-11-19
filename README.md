@@ -5,5 +5,5 @@ This repository is focused on learning the C language through Exercises, Project
 This repository contains implementations of algorithms in the C language in order to deepen knowledge in the language.
 ***
 **C Topics:** Main contents to learn the C language.<br>
-**C Codes:** Exercises, projects and tests.
+**C Projects:** Exercises, projects and tests.
 ***
